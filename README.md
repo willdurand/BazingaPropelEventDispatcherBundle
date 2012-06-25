@@ -5,15 +5,42 @@ Integrates the Propel
 [EventDispatcherBehavior](https://github.com/willdurand/EventDispatcherBehavior)
 into Symfony2.
 
-Each class owns its own event dispatcher, so that you don't listen useless
+Each class owns its own event dispatcher, so that you don't listen to useless
 events, and you have a better separation of concerns.
 
 
 ### Installation
 
-1. Register the bundle as usual.
-2. Add the EventDispatcherBehavior to your model classes.
-3. Configure your listeners.
+Register the bundle as usual:
+
+```js
+{
+    "require": {
+        "willdurand/propel-eventdispatcher-bundle": "dev-master"
+    }
+}
+```
+
+In `app/AppKernel.php`:
+
+```php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        new Bazinga\Bundle\PropelEventDispatcherBundle\BazingaPropelEventDispatcherBundle(),
+    );
+
+    // ...
+}
+```
+
+Add the EventDispatcherBehavior to your model classes. See the documentation of
+the EventDispatcherBehavior.
+
+Finally, configure your listeners.
 
 
 ### Usage
@@ -23,6 +50,7 @@ have an `ObjectListener` class which is a listener for `Object` instances:
 
 ```php
 <?php
+// src/My/Bundle/Listener/ObjectListener.php
 
 namespace My\Bundle\Listener;
 
@@ -42,6 +70,8 @@ In order to use this listener, you have to register a service in the Dependency
 Injection Container provided by Symfony2:
 
 ```xml
+// src/My/Bundle/Resources/config/services.xml
+
 <service id="my_bundle.listener.event_listener" class="%my_bundle.listener.event_listener.class%">
     <tag name="propel.event_listener" class="My\Bundle\Model\Object" event="propel.pre_save" />
 </service>
