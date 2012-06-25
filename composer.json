@@ -1,0 +1,12 @@
+{
+    "name": "willdurand/propel-eventdispatcher-bundle",
+    "require": {
+        "willdurand/propel-eventdispatcher-behavior": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "William DURAND",
+            "email": "william.durand1@gmail.com"
+        }
+    ]
+}
