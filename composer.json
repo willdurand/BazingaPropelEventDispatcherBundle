@@ -1,5 +1,7 @@
 {
     "name": "willdurand/propel-eventdispatcher-bundle",
+    "description": "Integrates the Propel EventDispatcherBehavior into Symfony2.",
+    "license": "MIT",
     "require": {
         "willdurand/propel-eventdispatcher-behavior": "dev-master"
     },
@@ -8,5 +10,9 @@
             "name": "William DURAND",
             "email": "william.durand1@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-0": { "Bazinga\\Bundle\\PropelEventDispatcherBundle": "" }
+    },
+    "target-dir": "Bazinga/Bundle/PropelEventDispatcherBundle"
 }
