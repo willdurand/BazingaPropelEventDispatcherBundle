@@ -21,7 +21,8 @@ class RegisterEventListenersPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds('propel.event_listener') as $id => $attributes) {
             foreach ($attributes as $attrs) {
                 $class  = $attrs['class'];
-                $method = $this->getMethodFromEvent($attrs['event']);
+                $event  = $attrs['event'];
+                $method = $this->getMethodFromEvent($event);
                 $servId = $this->getServiceIdForClass($class);
 
                 if (!isset($classes[$servId])) {
