@@ -22,9 +22,14 @@ class BazingaPropelEventDispatcherBundle extends Bundle
         $container->addCompilerPass(new RegisterEventListenersPass());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function boot()
     {
-        foreach ($this->container->getParameter('bazinga.propel_event_dispatcher.classes') as $id => $class) {
+        $classes = $this->container->getParameter('bazinga.propel_event_dispatcher.registered_classes');
+
+        foreach ($classes as $id => $class) {
             $class::setEventDispatcher(new LazyEventDispatcher($this->container, $id));
         }
     }
