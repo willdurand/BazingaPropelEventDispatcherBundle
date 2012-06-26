@@ -86,4 +86,19 @@ method `postUpdate()`).
 If you register your own event, let's say `preStart`, it will call the
 `preStart()` method, and an event named `pre_start` will also call `preSave()`.
 
+You can add as many tags as you want in order to register more than one event:
+
+```xml
+// src/My/Bundle/Resources/config/services.xml
+
+<service id="my_bundle.listener.event_listener" class="%my_bundle.listener.event_listener.class%">
+    <tag name="propel.event_listener" class="My\Bundle\Model\Object" event="propel.pre_save" />
+    <tag name="propel.event_listener" class="My\Bundle\Model\Object" event="propel.post_save" />
+</service>
+```
+
+Read more about the Propel [lifecycle
+callbacks](http://www.propelorm.org/cookbook/symfony2/symfony2-and-propel-in-real-life.html#lifecycle_callbacks)
+to know all available hooks, and their differences.
+
 That's all folks!
