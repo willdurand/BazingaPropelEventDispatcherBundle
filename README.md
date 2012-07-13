@@ -84,7 +84,7 @@ The event `propel.pre_save` will call the method named `preSave()`. This is a
 convention. And, all "core" events use it (`propel.post_update` will call the
 method `postUpdate()`).
 If you register your own event, let's say `preStart`, it will call the
-`preStart()` method, and an event named `pre_start` will also call `preSave()`.
+`preStart()` method, and an event named `pre_start` will also call `preStart()`.
 
 You can add as many tags as you want in order to register more than one event:
 
