@@ -86,6 +86,9 @@ method `postUpdate()`).
 If you register your own event, let's say `preStart`, it will call the
 `preStart()` method, and an event named `pre_start` will also call `preStart()`.
 
+**Note:** If you want to use a method name different than the convention, you
+can force it by adding the `method` attribute on the tag.
+
 You can add as many tags as you want in order to register more than one event:
 
 ```xml
@@ -94,8 +97,23 @@ You can add as many tags as you want in order to register more than one event:
 <service id="my_bundle.listener.event_listener" class="%my_bundle.listener.event_listener.class%">
     <tag name="propel.event_listener" class="My\Bundle\Model\Object" event="propel.pre_save" />
     <tag name="propel.event_listener" class="My\Bundle\Model\Object" event="propel.post_save" />
+    <tag name="propel.event_listener" class="My\Bundle\Model\Object" event="propel.post_save" method="latePostSave" priority="-10" />
 </service>
 ```
+
+The bundle also supports registering event subscribers:
+
+```xml
+// src/My/Bundle/Resources/config/services.xml
+
+<service id="my_bundle.listener.event_listener" class="%my_bundle.listener.event_listener.class%">
+    <tag name="propel.event_subscriber" class="My\Bundle\Model\Object" />
+</service>
+```
+
+**Note:** You have to tag this service with `propel.event_subscriber`, and the
+`class` is required. The class of the service must also be defined properly
+even when the service is created by a factory.
 
 Read more about the Propel [lifecycle
 callbacks](http://www.propelorm.org/cookbook/symfony2/symfony2-and-propel-in-real-life.html#lifecycle_callbacks)
