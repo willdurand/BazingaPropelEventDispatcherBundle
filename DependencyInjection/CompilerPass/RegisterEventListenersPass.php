@@ -109,6 +109,6 @@ class RegisterEventListenersPass implements CompilerPassInterface
      */
     private function getServiceIdForClass($class)
     {
-        return 'bazinga.propel_event_dispatcher.' . strtolower(str_replace('\\', '_', $class));
+        return 'bazinga.propel_event_dispatcher.dispatcher.' . strtolower(str_replace('\\', '_', $class));
     }
 }
