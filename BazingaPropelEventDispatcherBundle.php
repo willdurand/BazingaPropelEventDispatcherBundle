@@ -3,7 +3,6 @@
 namespace Bazinga\Bundle\PropelEventDispatcherBundle;
 
 use Bazinga\Bundle\PropelEventDispatcherBundle\DependencyInjection\CompilerPass\RegisterEventListenersPass;
-use Bazinga\Bundle\PropelEventDispatcherBundle\EventDispatcher\LazyEventDispatcher;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -27,10 +26,6 @@ class BazingaPropelEventDispatcherBundle extends Bundle
      */
     public function boot()
     {
-        $classes = $this->container->getParameter('bazinga.propel_event_dispatcher.registered_classes');
-
-        foreach ($classes as $id => $class) {
-            $class::setEventDispatcher(new LazyEventDispatcher($this->container, $id));
-        }
+        $this->container->get('bazinga.propel_event_dispatcher.injector')->initializeModels();
     }
 }
