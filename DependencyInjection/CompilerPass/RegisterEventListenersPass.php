@@ -20,33 +20,77 @@ class RegisterEventListenersPass implements CompilerPassInterface
         $classes = array();
         foreach ($container->findTaggedServiceIds('propel.event_listener') as $id => $attributes) {
             foreach ($attributes as $attrs) {
-                $class  = $attrs['class'];
-                $event  = $attrs['event'];
-                $method = $this->getMethodFromEvent($event);
-                $servId = $this->getServiceIdForClass($class);
-
-                if (!isset($classes[$servId])) {
-                    // create a new EventDispatcher service
-                    $service = $container
-                        ->register($servId)
-                        ->setClass($container->getParameter('bazinga.propel_event_dispatcher.event_dispatcher.class'))
-                        ->setArguments(array(new Reference('service_container')))
-                        ;
-
-                    $classes[$servId] = $class;
-                } else {
-                    $service = $container->getDefinition($servId);
+                if (!isset($attrs['class'])) {
+                    throw new \InvalidArgumentException(sprintf('Service "%s" must define the "class" attribute on "propel.event_listener" tags.', $id));
+                }
+                if (!isset($attrs['event'])) {
+                    throw new \InvalidArgumentException(sprintf('Service "%s" must define the "event" attribute on "propel.event_listener" tags.', $id));
                 }
 
-                $service
+                $event  = $attrs['event'];
+                if (!isset($event['method'])) {
+                    $event['method'] = $this->getMethodFromEvent($event);
+                }
+                $priority = isset($event['priority']) ? $event['priority'] : 0;
+
+                $this->getDispatcherForClass($container, $attrs['class'])
                     ->addMethodCall('addListenerService', array(
                         $event,
-                        array($id, $method)
+                        array($id, $event['method']),
+                        $priority,
                     ));
+
+                $classes[] = $attrs['class'];
             }
         }
 
-        $container->setParameter('bazinga.propel_event_dispatcher.registered_classes', $classes);
+        foreach ($container->findTaggedServiceIds('propel.event_subscriber') as $id => $attributes) {
+            // We must assume that the class value has been correctly filled, even if the service is created by a factory
+            $class = $container->getDefinition($id)->getClass();
+
+            $refClass = new \ReflectionClass($class);
+            $interface = 'Symfony\Component\EventDispatcher\EventSubscriberInterface';
+            if (!$refClass->implementsInterface($interface)) {
+                throw new \InvalidArgumentException(sprintf('Service "%s" must implement interface "%s".', $id, $interface));
+            }
+
+            foreach ($attributes as $attrs) {
+                if (!isset($attrs['class'])) {
+                    throw new \InvalidArgumentException(sprintf('Service "%s" must define the "class" attribute on "propel.event_subscriber" tags.', $id));
+                }
+
+                $this->getDispatcherForClass($container, $attrs['class'])
+                    ->addMethodCall('addSubscriberService', array($id, $class));
+
+                $classes[] = $attrs['class'];
+            }
+        }
+
+        $container->setParameter('bazinga.propel_event_dispatcher.registered_classes', array_unique($classes));
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param string           $class
+     *
+     * @return \Symfony\Component\DependencyInjection\Definition
+     */
+    private function getDispatcherForClass(ContainerBuilder $container, $class)
+    {
+        $id = $this->getServiceIdForClass($class);
+
+        if ($container->hasDefinition($id)) {
+            return $container->getDefinition($id);
+        }
+
+        // create a new EventDispatcher service
+        $service = $container
+            ->register($id)
+            ->setClass('%bazinga.propel_event_dispatcher.event_dispatcher.class%')
+            ->setArguments(array(new Reference('service_container')))
+            ;
+
+        return $service;
     }
 
     /**
