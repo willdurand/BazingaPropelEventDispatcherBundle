@@ -12,12 +12,13 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class RegisterEventListenersPass implements CompilerPassInterface
 {
+    private $classes = array();
+
     /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
-        $classes = array();
         foreach ($container->findTaggedServiceIds('propel.event_listener') as $id => $attributes) {
             foreach ($attributes as $attrs) {
                 if (!isset($attrs['class'])) {
@@ -39,8 +40,6 @@ class RegisterEventListenersPass implements CompilerPassInterface
                         array($id, $event['method']),
                         $priority,
                     ));
-
-                $classes[] = $attrs['class'];
             }
         }
 
@@ -61,12 +60,10 @@ class RegisterEventListenersPass implements CompilerPassInterface
 
                 $this->getDispatcherForClass($container, $attrs['class'])
                     ->addMethodCall('addSubscriberService', array($id, $class));
-
-                $classes[] = $attrs['class'];
             }
         }
 
-        $container->setParameter('bazinga.propel_event_dispatcher.registered_classes', array_unique($classes));
+        $container->setParameter('bazinga.propel_event_dispatcher.registered_classes', $this->classes);
     }
 
     /**
@@ -89,6 +86,8 @@ class RegisterEventListenersPass implements CompilerPassInterface
             ->setClass('%bazinga.propel_event_dispatcher.event_dispatcher.class%')
             ->setArguments(array(new Reference('service_container')))
             ;
+
+        $this->classes[$id] = $class;
 
         return $service;
     }
