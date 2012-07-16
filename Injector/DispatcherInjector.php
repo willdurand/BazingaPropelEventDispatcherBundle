@@ -1,6 +1,6 @@
 <?php
 
-namespace Bazinga\Bundle\PropelEventDispatcherBundle;
+namespace Bazinga\Bundle\PropelEventDispatcherBundle\Injector;
 
 use Bazinga\Bundle\PropelEventDispatcherBundle\EventDispatcher\LazyEventDispatcher;
 use Symfony\Component\DependencyInjection\ContainerInterface;
