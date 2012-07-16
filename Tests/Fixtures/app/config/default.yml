@@ -1,0 +1,14 @@
+framework:
+    secret:         test
+    router:         { resource: "%kernel.root_dir%/config/routing.yml" }
+    test:           ~
+    default_locale: en
+    session:
+        storage_id: session.storage.mock_file
+    profiler:       { only_exceptions: false }
+
+services:
+    listener.my_event_listener:
+        class: Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\EventListener\MyEventListener
+        tags:
+             - { name: propel.event_listener, class: Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model\MyObject, event: propel.pre_save }

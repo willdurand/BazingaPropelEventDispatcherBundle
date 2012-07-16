@@ -24,19 +24,22 @@ class RegisterEventListenersPass implements CompilerPassInterface
                 if (!isset($attrs['class'])) {
                     throw new \InvalidArgumentException(sprintf('Service "%s" must define the "class" attribute on "propel.event_listener" tags.', $id));
                 }
+
                 if (!isset($attrs['event'])) {
                     throw new \InvalidArgumentException(sprintf('Service "%s" must define the "event" attribute on "propel.event_listener" tags.', $id));
                 }
 
-                $event  = $attrs['event'];
+                $event = $attrs;
                 if (!isset($event['method'])) {
-                    $event['method'] = $this->getMethodFromEvent($event);
+                    $event['method'] = $this->getMethodFromEvent($event['event']);
                 }
+
                 $priority = isset($event['priority']) ? $event['priority'] : 0;
 
-                $this->getDispatcherForClass($container, $attrs['class'])
+                $this
+                    ->getDispatcherForClass($container, $attrs['class'])
                     ->addMethodCall('addListenerService', array(
-                        $event,
+                        $event['event'],
                         array($id, $event['method']),
                         $priority,
                     ));

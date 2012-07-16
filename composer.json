@@ -5,6 +5,10 @@
     "require": {
         "willdurand/propel-eventdispatcher-behavior": "dev-master"
     },
+    "require-dev": {
+        "symfony/framework-bundle": "2.1.*",
+        "symfony/yaml": "2.1.*"
+    },
     "authors": [
         {
             "name": "William DURAND",
@@ -14,5 +18,6 @@
     "autoload": {
         "psr-0": { "Bazinga\\Bundle\\PropelEventDispatcherBundle": "" }
     },
-    "target-dir": "Bazinga/Bundle/PropelEventDispatcherBundle"
+    "target-dir": "Bazinga/Bundle/PropelEventDispatcherBundle",
+    "minimum-stability": "dev"
 }
