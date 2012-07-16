@@ -6,6 +6,12 @@ use Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model\MyObject;
 
 class BazingaPropelEventDispatcherBundleTest extends WebTestCase
 {
+    public function setUp()
+    {
+        $this->assertFalse(class_exists('Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model\MyObject', false));
+        $this->assertFalse(class_exists('Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model\MyObject2', false));
+    }
+
     public function testGetListener()
     {
         $listener = $this->getContainer()->get('listener.my_event_listener');
@@ -20,6 +26,11 @@ class BazingaPropelEventDispatcherBundleTest extends WebTestCase
 
         $this->assertNotNull($listener);
         $this->assertInstanceOf('Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\EventListener\MyEventListener', $listener);
+    }
+
+    public function testGetListenerWithNonExistentParentClass()
+    {
+        $listener = $this->getContainer()->get('listener.my_event_listener_3');
     }
 
     public function testFireEvent()
