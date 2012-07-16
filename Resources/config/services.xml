@@ -6,5 +6,14 @@
     <parameters>
         <parameter key="bazinga.propel_event_dispatcher.registered_classes" type="collection" />
         <parameter key="bazinga.propel_event_dispatcher.event_dispatcher.class">Symfony\Component\EventDispatcher\ContainerAwareEventDispatcher</parameter>
+        <parameter key="bazinga.propel_event_dispatcher.injector.class">Bazinga\Bundle\PropelEventDispatcherBundle\DispatcherInjector</parameter>
     </parameters>
+
+    <services>
+        <service id="bazinga.propel_event_dispatcher.injector" class="%bazinga.propel_event_dispatcher.injector.class%">
+            <argument type="service" id="service_container" />
+            <argument>%bazinga.propel_event_dispatcher.registered_classes%</argument>
+            <argument type="service" id="logger" on-invalid="ignore" />
+        </service>
+    </services>
 </container>
