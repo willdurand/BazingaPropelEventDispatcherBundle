@@ -1,6 +1,8 @@
 BazingaPropelEventDispatcherBundle
 ==================================
 
+[![Build Status](https://secure.travis-ci.org/willdurand/BazingaPropelEventDispatcherBundle.png?branch=master)](http://travis-ci.org/willdurand/BazingaPropelEventDispatcherBundle)
+
 Integrates the Propel
 [EventDispatcherBehavior](https://github.com/willdurand/EventDispatcherBehavior)
 into Symfony2.
