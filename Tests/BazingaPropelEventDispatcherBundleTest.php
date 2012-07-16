@@ -11,4 +11,12 @@ class BazingaPropelEventDispatcherBundleTest extends WebTestCase
         $this->assertNotNull($listener);
         $this->assertInstanceOf('Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\EventListener\MyEventListener', $listener);
     }
+
+    public function testGetListenerWithNonExistentClass()
+    {
+        $listener = $this->getContainer()->get('listener.my_event_listener_2');
+
+        $this->assertNotNull($listener);
+        $this->assertInstanceOf('Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\EventListener\MyEventListener', $listener);
+    }
 }
