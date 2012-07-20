@@ -2,31 +2,20 @@
 
 namespace Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model\om\BaseMyObject3;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
-class MyObject3 implements \EventDispatcherAwareModelInterface
+class MyObject3 extends BaseMyObject3
 {
-    static private $eventDispatcher;
-
-    /**
-     * {@inheritdoc}
-     */
-    static public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
-    {
-        self::$eventDispatcher = $eventDispatcher;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    static public function getEventDispatcher()
-    {
-        return self::$eventDispatcher;
-    }
+    public $source = null;
 
     public function preSave()
     {
-        self::$eventDispatcher->dispatch('propel.pre_save', new GenericEvent($this));
+        self::getEventDispatcher()->dispatch('propel.pre_save', new GenericEvent($this));
+    }
+
+    public function preInsert()
+    {
+        self::getEventDispatcher()->dispatch('propel.pre_insert', new GenericEvent($this));
     }
 }

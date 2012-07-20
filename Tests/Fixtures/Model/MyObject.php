@@ -2,10 +2,11 @@
 
 namespace Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model;
 
+use Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model\om\BaseMyObject;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 
-class MyObject implements \EventDispatcherAwareModelInterface
+class MyObject extends BaseMyObject implements \EventDispatcherAwareModelInterface
 {
     static private $eventDispatcher;
 

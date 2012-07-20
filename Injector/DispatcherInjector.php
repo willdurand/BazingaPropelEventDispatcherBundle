@@ -32,7 +32,16 @@ class DispatcherInjector
     public function initializeModels()
     {
         foreach ($this->classes as $id => $class) {
-            if (!class_exists($class, false) || false === @eval(sprintf('new %s;', $class))) {
+            $baseClass = sprintf('%s\\om\\Base%s',
+                substr($class, 0, strrpos($class, '\\')),
+                substr($class, strrpos($class, '\\') + 1, strlen($class))
+            );
+
+            try {
+                $ref = new \ReflectionClass($baseClass);
+            } catch (\ReflectionException $e) {
+                $this->log(sprintf('The class "%s" does not exist.', $baseClass));
+
                 continue;
             }
 

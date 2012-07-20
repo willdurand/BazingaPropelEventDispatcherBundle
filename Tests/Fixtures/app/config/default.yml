@@ -27,3 +27,8 @@ services:
         class: Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\EventListener\MyEventListener
         tags:
              - { name: propel.event_listener, class: Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model\MyObject3, event: propel.pre_save }
+
+    subscriber.my_subscriber_1:
+        class: Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\EventListener\MyEventSubscriber
+        tags:
+             - { name: propel.event_subscriber, class: Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\Model\MyObject3 }

@@ -47,7 +47,7 @@ class AppKernel extends Kernel
     {
         return array(
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Bazinga\Bundle\PropelEventDispatcherBundle\BazingaPropelEventDispatcherBundle(),
+            new \Bazinga\Bundle\PropelEventDispatcherBundle\BazingaPropelEventDispatcherBundle($this),
             new \Bazinga\Bundle\PropelEventDispatcherBundle\Tests\Fixtures\BazingaPropelEventDispatcherTestBundle(),
         );
     }
