@@ -60,7 +60,7 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class ObjectListener
 {
-    public function preSave(Event $event)
+    public function preSave(GenericEvent $event)
     {
         // do what you want with $event
         // for instance, $event->getSubject() will return the Object object
