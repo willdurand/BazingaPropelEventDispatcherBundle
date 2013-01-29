@@ -118,7 +118,7 @@ The bundle also supports registering event subscribers:
 even when the service is created by a factory.
 
 Read more about the Propel [lifecycle
-callbacks](http://www.propelorm.org/cookbook/symfony2/symfony2-and-propel-in-real-life.html#lifecycle_callbacks)
+callbacks](http://symfony.com/doc/master/book/propel.html#lifecycle-callbacks)
 to know all available hooks, and their differences.
 
 That's all folks!
