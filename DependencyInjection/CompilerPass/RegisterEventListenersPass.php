@@ -88,6 +88,7 @@ class RegisterEventListenersPass implements CompilerPassInterface
             ->register($id)
             ->setClass('%bazinga.propel_event_dispatcher.event_dispatcher.class%')
             ->setArguments(array(new Reference('service_container')))
+            ->addTag('propel.event_dispatcher')
             ;
 
         $this->classes[$id] = $class;
