@@ -7,12 +7,12 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 abstract class BaseMyObject3 implements \EventDispatcherAwareModelInterface
 {
-    static private $eventDispatcher;
+    private static $eventDispatcher;
 
     /**
      * {@inheritdoc}
      */
-    static public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
+    public static function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
     {
         self::$eventDispatcher = $eventDispatcher;
     }
@@ -20,7 +20,7 @@ abstract class BaseMyObject3 implements \EventDispatcherAwareModelInterface
     /**
      * {@inheritdoc}
      */
-    static public function getEventDispatcher()
+    public static function getEventDispatcher()
     {
         if (null === self::$eventDispatcher) {
             self::$eventDispatcher = new EventDispatcher();

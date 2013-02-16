@@ -97,7 +97,7 @@ class RegisterEventListenersPass implements CompilerPassInterface
     }
 
     /**
-     * @param string $event
+     * @param  string $event
      * @return string
      */
     private function getMethodFromEvent($event)
@@ -108,7 +108,7 @@ class RegisterEventListenersPass implements CompilerPassInterface
     }
 
     /**
-     * @param string $class
+     * @param  string $class
      * @return string
      */
     private function getServiceIdForClass($class)

@@ -8,12 +8,12 @@ use Symfony\Component\EventDispatcher\GenericEvent;
 
 class MyObject extends BaseMyObject implements \EventDispatcherAwareModelInterface
 {
-    static private $eventDispatcher;
+    private static $eventDispatcher;
 
     /**
      * {@inheritdoc}
      */
-    static public function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
+    public static function setEventDispatcher(EventDispatcherInterface $eventDispatcher)
     {
         self::$eventDispatcher = $eventDispatcher;
     }
@@ -21,7 +21,7 @@ class MyObject extends BaseMyObject implements \EventDispatcherAwareModelInterfa
     /**
      * {@inheritdoc}
      */
-    static public function getEventDispatcher()
+    public static function getEventDispatcher()
     {
         return self::$eventDispatcher;
     }

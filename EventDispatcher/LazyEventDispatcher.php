@@ -29,7 +29,7 @@ class LazyEventDispatcher implements EventDispatcherInterface
 
     /**
      * @param ContainerInterface $container
-     * @param string $serviceId
+     * @param string             $serviceId
      */
     public function __construct($container, $serviceId)
     {
