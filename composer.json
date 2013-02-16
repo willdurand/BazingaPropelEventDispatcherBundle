@@ -3,11 +3,11 @@
     "description": "Integrates the Propel EventDispatcherBehavior into Symfony2.",
     "license": "MIT",
     "require": {
-        "willdurand/propel-eventdispatcher-behavior": "dev-master"
+        "willdurand/propel-eventdispatcher-behavior": "~1.0"
     },
     "require-dev": {
-        "symfony/framework-bundle": "2.1.*",
-        "symfony/yaml": "2.1.*"
+        "symfony/framework-bundle": "@stable",
+        "symfony/yaml": "@stable"
     },
     "authors": [
         {
@@ -18,6 +18,5 @@
     "autoload": {
         "psr-0": { "Bazinga\\Bundle\\PropelEventDispatcherBundle": "" }
     },
-    "target-dir": "Bazinga/Bundle/PropelEventDispatcherBundle",
-    "minimum-stability": "dev"
+    "target-dir": "Bazinga/Bundle/PropelEventDispatcherBundle"
 }
