@@ -6,8 +6,8 @@
         "willdurand/propel-eventdispatcher-behavior": "~1.0"
     },
     "require-dev": {
-        "symfony/framework-bundle": "@stable",
-        "symfony/yaml": "@stable"
+        "symfony/framework-bundle": "~2.1",
+        "symfony/yaml": "~2.1"
     },
     "authors": [
         {
